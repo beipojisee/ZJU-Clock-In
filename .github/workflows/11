@@ -1,0 +1,17 @@
+name: Secret Test
+
+on: workflow_dispatch # 允许手动点击运行
+
+jobs:
+  check-secret:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 检查 Secret 是否存在
+        run: |
+          if [ -z "${{ secrets.ACCOUNT }}" ]; then
+            echo "错误：Secret 是空的！"
+            exit 1
+          else
+            echo "成功：Secret 已读取（出于安全，下方会显示为 ***）"
+            echo "Secret 的值是: ${{ secrets.ACCOUNT }}"
+          fi
